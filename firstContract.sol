@@ -1,32 +1,22 @@
-pragma solidity ^0.4.6;
+pragma solidity ^0.5.0;
 
-contract firstContract {
-    uint256 returnedValue=1;
-    address public linkedContract;
-    address[] public historyOfContracts;
-
-
-
+contract firstOne{
     
-    function changeContract(address newContract) public returns (bool){
-        historyOfContracts.push(linkedContract);
-        address oldContract = linkedContract;
-        linkedContract = newContract;
-
-        return true;
-    }
-
-    function delegatedCalculation(uint256 firstNumber, uint256 secondNumber) public{
-       linkedContract.delegatecall(bytes4(keccak256("calculate(uint256,uint256)")), firstNumber, secondNumber);
+    address linkedContract;
+    uint256 total;
+    
+    function setLinkedContract(address _newContract) public{
+        linkedContract = _newContract;
     }
     
-    function getReturnedView() public returns(uint256){
-        return returnedValue;
+    function delegatedCalculation(uint firstNumber, uint secondNumber) public{
+        bool status;
+        bytes memory result;
+        (status, result) = linkedContract.delegatecall(abi.encodePacked(bytes4(keccak256("calculate(uint256,uint256)")), firstNumber, secondNumber));
     }
     
-    function getLinkedContract() public returns(address){
-        return linkedContract;
+    function getTotal() public view returns (uint256){
+        return total;
     }
     
-
 }
