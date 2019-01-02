@@ -1,12 +1,14 @@
-pragma solidity ^0.4.6;
+pragma solidity ^0.5.0;
 
-contract thirdContract {
-    uint256 returnedValue=1;
-    address public linkedContract;
-    address[] public historyOfContracts;
-
+contract thirdOne{
     
-    function calculate(uint256 firstNumber, uint256 secondNumber) public{
-        returnedValue = firstNumber+secondNumber;
+    uint256 public result;
+    uint256 public total;
+    
+    function calculate(uint firstNumber, uint secondNumber) public returns (uint256){
+        result = firstNumber+secondNumber;
+        total = result;
+        return result;
     }
+    
 }
